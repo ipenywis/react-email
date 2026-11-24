@@ -5,6 +5,7 @@ import { pretty } from '../shared/utils/pretty';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { unstableToPlainText } from '../shared/utils/unstable-to-plain-text';
+import { withDoctype } from '../shared/utils/with-doctype';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
@@ -76,10 +77,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
       : toPlainText(html, options.htmlToTextOptions);
   }
 
-  const doctype =
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+  const document = withDoctype(html, options?.doctype);
 
   if (options?.pretty) {
     return pretty(document);

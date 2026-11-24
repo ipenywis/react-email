@@ -8,6 +8,12 @@ export type Options = {
    * @see {@link pretty}
    */
   pretty?: boolean;
+  /**
+   * The doctype put before the rendered HTML. Defaults to XHTML 1.0
+   * Transitional, which most email clients expect. Pass `false` to leave it
+   * out. Ignored when `plainText` is true.
+   */
+  doctype?: string | false;
 } & (
   | {
       /**
